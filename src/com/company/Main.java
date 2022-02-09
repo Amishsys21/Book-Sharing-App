@@ -1,42 +1,31 @@
 package com.company;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World - This is Java Case Study - Book Sharing App");
 
-        Set<String> ts1 = new TreeSet<>();
-        ts1.add("A");
-        ts1.add("B");
-        ts1.add("C");
+        Map<Integer, Set<String>> bookMap = new HashMap<>();
+        Users user = new Users("Dhruv","dhruv@gmail.com");
 
-        Set<Set> newSet = new HashSet<>();
-        newSet.add(ts1);
+        String[] bookAuthor = {"Author 1", "Author 2"};
+        String[] keywords = {"Keyword 1", "Keyword 2"};
 
-        for (Set set  : newSet) {
-            System.out.println(set);
-        }
+        Books book = new Books(101, "Java Learning", bookAuthor, keywords, user);
+        book.add();
+        book.display();
+        System.out.println("=================");
+        book.addBook();
 
-        Map<Integer, Set> map = new HashMap<>();
-        map.put(1, ts1);
+        bookMap = book.getBook();
 
-        for(Map.Entry m:map.entrySet()){
+        for(Map.Entry m: bookMap.entrySet()){
             System.out.println(m.getKey()+" "+m.getValue());
         }
 
-        Map<Integer, String> newMap = new HashMap<>();
-//        newMap.put(1, "H");
-//        newMap.put(1, "c");
-//        newMap.put(1, "b");
-
-//        newMap.set(1,"A");
-//        newMap.set(1,"B");
-
-
-
-        for (Map.Entry m: newMap.entrySet()) {
-            System.out.println(m.getKey() + " - " + m.getValue());
-        }
+        book.search(101,"Java");
     }
 }
