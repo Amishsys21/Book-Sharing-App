@@ -10,5 +10,8 @@ public class Main {
         book.setAuthor();
         book.setKeyword();
         book.display();
+
+        book.addList();
+        book.displayList();
     }
 }
