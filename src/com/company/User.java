@@ -1,10 +1,10 @@
 package com.company;
 
-public class Users {
+public class User {
     public String userName;
     public String userEmail;
 
-    public Users(String userName, String userEmail) {
+    public User(String userName, String userEmail) {
         this.userName = userName;
         this.userEmail = userEmail;
     }
