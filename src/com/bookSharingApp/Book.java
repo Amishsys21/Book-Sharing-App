@@ -1,62 +1,41 @@
 package com.bookSharingApp;
 
-import com.bookSharingApp.model.Author;
-import com.bookSharingApp.model.Keyword;
-import com.bookSharingApp.model.Owner;
-
-import java.util.List;
+import java.util.*;
 
 public class Book {
     private long isbn;
     private String title;
-    private List<Author> author;
-    private List<Keyword> keyword;
-    private Owner owner;
+    private Set<String> author;
+    private Set<String> keyword;
 
-    public Book(long isbn, String title, List<Author> author, List<Keyword> keyword) {
+    public Book(long isbn, String title) {
         this.isbn = isbn;
         this.title = title;
-        this.author = author;
-        this.keyword = keyword;
+        this.author = new HashSet<String>();
+        this.keyword = new HashSet<String>();
     }
 
     public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
-        this.isbn = isbn;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public boolean addAuthor(String author) {
+        return this.author.add(author);
     }
 
-    public List<Author> getAuthor() {
-        return author;
+    public boolean addKeyword(String keyword) {
+        return this.keyword.add(keyword);
     }
 
-    public void addAuthor(List<Author> author) {
-        this.author = author;
+    public Set<String> getAuthor() {
+        return new HashSet<>(this.author);
     }
 
-    public List<Keyword> getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(List<Keyword> keyword) {
-        this.keyword = keyword;
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public Set<String> getKeyword() {
+        return new HashSet<>(this.keyword);
     }
 }
