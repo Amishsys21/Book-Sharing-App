@@ -2,8 +2,6 @@ package com.booksharingapp;
 
 import com.booksharingapp.model.Owner;
 
-import com.bookSharingApp.model.Owner;
-
 import java.util.*;
 
 public class Book {
