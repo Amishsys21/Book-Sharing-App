@@ -1,6 +1,7 @@
 package com.booksharingapp;
 
-import com.booksharingapp.model.Owner;
+import com.bookSharingApp.model.Author;
+import com.bookSharingApp.model.Keyword;
 
 import java.util.*;
 import java.util.logging.Level;
