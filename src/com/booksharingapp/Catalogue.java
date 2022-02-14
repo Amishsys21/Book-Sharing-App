@@ -20,6 +20,15 @@ public class Catalogue {
         book.addOwner(owner);
         shelves.put(book.getIsbn(), book);
 
+        book = new Book(323232, "Java Book");
+        owner = new Owner("Harshit", "harshit@gmail.com");
+        book.addAuthor("JavaBoy");
+        book.addAuthor("JavaDog");
+        book.addKeyword("Java");
+        book.addKeyword("Programming");
+        book.addOwner(owner);
+        shelves.put(book.getIsbn(), book);
+
         book = new Book(876538, "Python Programming Book");
         owner = new Owner("Mayank", "mayank@gmail.com");
         book.addAuthor("PythonBoy");
@@ -42,64 +51,68 @@ public class Catalogue {
 
         shelves.put(book.getIsbn(), book);
 
-        List<String> searchByTitleResult = searchByTitle("Java Programming Book", shelves);
-        displayResult(searchByTitleResult);
+        Map<Long, List<String>> searchTitleResult = searchTitle("Java Book", shelves);
+        displayResult(searchTitleResult);
 
-        List<String> searchByAuthorResult = searchByAuthor("PythonBoy", shelves);
-        displayResult(searchByAuthorResult);
+        Map<Long, List<String>> searchAuthorResult = searchAuthor("C++Boy", shelves);
+        displayResult(searchAuthorResult);
 
-        List<String> searchByKeywordResult = searchByKeyword("Cat", shelves);
-        displayResult(searchByKeywordResult);
+        Map<Long, List<String>> searchKeywordResult = searchKeyword("Book", shelves);
+        displayResult(searchKeywordResult);
     }
 
-    public static List<String> searchByTitle(String title, Map<Long, Book> shelves) {
+    private static void displayResult(Map<Long, List<String>> searchResult) {
+        searchResult.forEach((key, value) -> System.out.println(key + ":" + value));
+    }
+
+    private static Map<Long, List<String>> searchTitle(String title, Map<Long, Book> shelves) {
+        logger.log(Level.INFO, "============ Map ==============");
+        Map<Long, List<String>> mapResult = new HashMap<>();
         List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
             if (entry.getValue().getTitle().equalsIgnoreCase(title)) {
-                logger.log(Level.INFO,"Book Found");
                 result.add(String.valueOf(entry.getKey()));
                 result.add(entry.getValue().getTitle());
                 result.add(entry.getValue().getAuthors().toString());
                 result.add(entry.getValue().getKeywords().toString());
-                return result;
+                mapResult.put(entry.getKey(), result);
+                return mapResult;
             }
         }
         return null;
     }
 
-    public static List<String> searchByAuthor(String author, Map<Long, Book> shelves) {
+    private static Map<Long, List<String>> searchAuthor(String author, Map<Long, Book> shelves) {
+        logger.log(Level.INFO, "============ Map ==============");
+        Map<Long, List<String>> mapResult = new HashMap<>();
         List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
             if (entry.getValue().getAuthors().contains(author)) {
-                logger.log(Level.INFO,"Book Found");
                 result.add(String.valueOf(entry.getKey()));
                 result.add(entry.getValue().getTitle());
                 result.add(entry.getValue().getAuthors().toString());
                 result.add(entry.getValue().getKeywords().toString());
-                return result;
+                mapResult.put(entry.getKey(), result);
+                return mapResult;
             }
         }
         return null;
     }
 
-    public static List<String> searchByKeyword(String keyword, Map<Long, Book> shelves) {
+    private static Map<Long, List<String>> searchKeyword(String keyword, Map<Long, Book> shelves) {
+        logger.log(Level.INFO, "============ Map ==============");
+        Map<Long, List<String>> mapResult = new HashMap<>();
         List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
             if (entry.getValue().getKeywords().contains(keyword)) {
-                logger.log(Level.INFO,"Book Found");
                 result.add(String.valueOf(entry.getKey()));
                 result.add(entry.getValue().getTitle());
                 result.add(entry.getValue().getAuthors().toString());
                 result.add(entry.getValue().getKeywords().toString());
-                return result;
+                mapResult.put(entry.getKey(), result);
+                return mapResult;
             }
         }
         return null;
-    }
-
-    public static void displayResult(List<String> resultList) {
-        for (String result: resultList) {
-            logger.log(Level.INFO, result);
-        }
     }
 }
