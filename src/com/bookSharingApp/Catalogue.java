@@ -1,86 +1,105 @@
-package com.bookSharingApp;
+package com.booksharingapp;
 
-import com.bookSharingApp.model.Author;
-import com.bookSharingApp.model.Keyword;
+import com.booksharingapp.model.Owner;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Catalogue {
+    private static Logger logger = Logger.getLogger(Catalogue.class.getName());
     private static Map<Long, Book> shelves = new HashMap<>();
-    private static Set<Book> listOfBooks = new HashSet<>();
 
     public static void main(String[] args) {
         Book book = new Book(123456, "Java Programming Book");
+        Owner owner = new Owner("Dhruv", "dhruv@gmail.com");
         book.addAuthor("JavaBoy");
         book.addAuthor("JavaDog");
         book.addKeyword("Java");
         book.addKeyword("Programming");
+        book.addOwner(owner);
         shelves.put(book.getIsbn(), book);
-        listOfBooks.add(book);
 
         book = new Book(876538, "Python Programming Book");
-        shelves.put(book.getIsbn(), book);
-        listOfBooks.add(book);
-
+        owner = new Owner("Mayank", "mayank@gmail.com");
         book.addAuthor("PythonBoy");
         book.addAuthor("PythonSnake");
         book.addKeyword("Python");
         book.addKeyword("Programming");
         book.addKeyword("Book");
+        book.addOwner(owner);
+
+        shelves.put(book.getIsbn(), book);
 
         book = new Book(1432432, "C++ Programming Book");
-        shelves.put(book.getIsbn(), book);
-        listOfBooks.add(book);
-
+        owner = new Owner("Kartik", "kartik@gmail.com");
         book.addAuthor("C++Boy");
         book.addAuthor("C++Cat");
         book.addKeyword("Cat");
         book.addKeyword("Programming");
         book.addKeyword("Book");
+        book.addOwner(owner);
 
-        System.out.println("Books: ");
-        for (Book b: listOfBooks) {
-            System.out.println(b.getIsbn() + " - " + b.getTitle() + " - " + b.getAuthor() + " - " + b.getKeyword());
-        }
+        shelves.put(book.getIsbn(), book);
 
-        System.out.println("================================");
+        List<String> searchByTitleResult = searchByTitle("Java Programming Book", shelves);
+        displayResult(searchByTitleResult);
 
-        for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
-            System.out.println(entry.getKey() + " => " + entry.getValue().getIsbn());
-        }
+        List<String> searchByAuthorResult = searchByAuthor("PythonBoy", shelves);
+        displayResult(searchByAuthorResult);
 
-        searchByTitle("Java Programming Book", shelves);
-        searchByAuthor("JavaBoy", shelves);
-        searchByKeyword("Java", shelves);
+        List<String> searchByKeywordResult = searchByKeyword("Cat", shelves);
+        displayResult(searchByKeywordResult);
     }
 
-    public static void searchByTitle(String title, Map<Long, Book> shelves) {
+    public static List<String> searchByTitle(String title, Map<Long, Book> shelves) {
+        List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
             if (entry.getValue().getTitle().equalsIgnoreCase(title)) {
-                System.out.println("Book Found");
-                System.out.println(entry.getKey() + " => " + entry.getValue().getTitle() + ", " + entry.getValue().getAuthor() + ", " + entry.getValue().getKeyword());
+                logger.log(Level.INFO,"Book Found");
+                result.add(String.valueOf(entry.getKey()));
+                result.add(entry.getValue().getTitle());
+                result.add(entry.getValue().getAuthors().toString());
+                result.add(entry.getValue().getKeywords().toString());
+                return result;
             }
         }
+        return null;
     }
 
-    public static void searchByAuthor(String author, Map<Long, Book> shelves) {
+    public static List<String> searchByAuthor(String author, Map<Long, Book> shelves) {
+        List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
-            if (entry.getValue().getAuthor().contains(author)) {
-                System.out.println("Book Found");
-                System.out.println(entry.getKey() + " => " + entry.getValue().getTitle() + ", " + entry.getValue().getAuthor() + ", " + entry.getValue().getKeyword());
+            if (entry.getValue().getAuthors().contains(author)) {
+                logger.log(Level.INFO,"Book Found");
+                result.add(String.valueOf(entry.getKey()));
+                result.add(entry.getValue().getTitle());
+                result.add(entry.getValue().getAuthors().toString());
+                result.add(entry.getValue().getKeywords().toString());
+                return result;
             }
         }
+        return null;
     }
 
-    public static void searchByKeyword(String keyword, Map<Long, Book> shelves) {
+    public static List<String> searchByKeyword(String keyword, Map<Long, Book> shelves) {
+        List<String> result = new ArrayList<>();
         for (Map.Entry<Long, Book> entry: shelves.entrySet()) {
-            if (entry.getValue().getKeyword().contains(keyword)) {
-                System.out.println("Book Found");
-                System.out.println(entry.getKey() + " => " + entry.getValue().getTitle() + ", " + entry.getValue().getAuthor() + ", " + entry.getValue().getKeyword());
+            if (entry.getValue().getKeywords().contains(keyword)) {
+                logger.log(Level.INFO,"Book Found");
+                result.add(String.valueOf(entry.getKey()));
+                result.add(entry.getValue().getTitle());
+                result.add(entry.getValue().getAuthors().toString());
+                result.add(entry.getValue().getKeywords().toString());
+                return result;
             }
+        }
+        return null;
+    }
+
+    public static void displayResult(List<String> resultList) {
+        for (String result: resultList) {
+            logger.log(Level.INFO, result);
         }
     }
 }

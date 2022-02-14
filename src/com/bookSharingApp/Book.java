@@ -1,18 +1,22 @@
-package com.bookSharingApp;
+package com.booksharingapp;
+
+import com.booksharingapp.model.Owner;
 
 import java.util.*;
 
 public class Book {
     private long isbn;
     private String title;
-    private Set<String> author;
-    private Set<String> keyword;
+    private Set<String> authors;
+    private Set<String> keywords;
+    private Set<Owner> owner;
 
     public Book(long isbn, String title) {
         this.isbn = isbn;
         this.title = title;
-        this.author = new HashSet<String>();
-        this.keyword = new HashSet<String>();
+        this.authors = new HashSet<>();
+        this.keywords = new HashSet<>();
+        this.owner = new HashSet<>();
     }
 
     public long getIsbn() {
@@ -24,18 +28,26 @@ public class Book {
     }
 
     public boolean addAuthor(String author) {
-        return this.author.add(author);
+        return this.authors.add(author);
     }
 
     public boolean addKeyword(String keyword) {
-        return this.keyword.add(keyword);
+        return this.keywords.add(keyword);
     }
 
-    public Set<String> getAuthor() {
-        return new HashSet<>(this.author);
+    public boolean addOwner(Owner owner) {
+        return this.owner.add(owner);
     }
 
-    public Set<String> getKeyword() {
-        return new HashSet<>(this.keyword);
+    public Set<String> getAuthors() {
+        return new HashSet<>(this.authors);
+    }
+
+    public Set<String> getKeywords() {
+        return new HashSet<>(this.keywords);
+    }
+
+    public Set<Owner> getOwner() {
+        return new HashSet<>(this.owner);
     }
 }

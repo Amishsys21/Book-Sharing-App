@@ -1,4 +1,4 @@
-package com.bookSharingApp.model;
+package com.booksharingapp.model;
 
 public class Owner {
     private String name;
