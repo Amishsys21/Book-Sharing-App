@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 public class WaitingQueue {
     private static Logger logger = Logger.getLogger(WaitingQueue.class.getName());
     private String title;
-    private Queue<Owner> requestQueue;
+    private Queue<Owner> waitingQueue;
 
     public WaitingQueue(String title) {
         this.title = title;
-        this.requestQueue = new LinkedList<>();
+        this.waitingQueue = new LinkedList<>();
     }
 
     public String getTitle() {
@@ -21,19 +21,19 @@ public class WaitingQueue {
     }
 
     public void addBorrower(Owner owner) {
-        requestQueue.add(owner);
+        waitingQueue.add(owner);
     }
 
     public int getQueueSize() {
-        return requestQueue.size();
+        return waitingQueue.size();
     }
 
     public void displayQueue() {
         logger.log(Level.INFO, "Current elements in the queue: ");
-        requestQueue.forEach(value -> logger.log(Level.INFO, () -> value.getName() + " " + value.getEmail()));
+        waitingQueue.forEach(value -> logger.log(Level.INFO, () -> value.getName() + " " + value.getEmail()));
     }
 
-    public Queue<Owner> getRequestQueue() {
-        return requestQueue;
+    public Queue<Owner> getWaitingQueue() {
+        return waitingQueue;
     }
 }
