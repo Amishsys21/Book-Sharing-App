@@ -67,23 +67,23 @@ public class Catalogue {
         displayResult(searchKeywordResult);
 
         // waiting queue
-        WaitingQueue rq = new WaitingQueue("Java Programming Book");
-        rq.addBorrower(owner);
+        WaitingQueue waitingQueue = new WaitingQueue("Java Programming Book");
+        waitingQueue.addBorrower(owner);
         owner = new Owner("Dan", "dan@gmail.com");
-        rq.addBorrower(owner);
-        rq.displayQueue();
-        logger.log(Level.INFO, "Total People in the queue: " + rq.getQueueSize());
-        borrowers.put(rq.getTitle(), rq.getRequestQueue());
+        waitingQueue.addBorrower(owner);
+
+        logger.log(Level.INFO, "Total People in the queue: " + waitingQueue.getQueueSize());
+        borrowers.put(waitingQueue.getTitle(), waitingQueue.getWaitingQueue());
 
 
-        rq = new WaitingQueue("Python Programming Book");
+        waitingQueue = new WaitingQueue("Python Programming Book");
         owner = new Owner("Gill", "gill@gmail.com");
-        rq.addBorrower(owner);
+        waitingQueue.addBorrower(owner);
         owner = new Owner("chill", "chill@gmail.com");
-        rq.addBorrower(owner);
-        rq.displayQueue();
-        logger.log(Level.INFO, "Total People in the queue: " + rq.getQueueSize());
-        borrowers.put(rq.getTitle(), rq.getRequestQueue());
+        waitingQueue.addBorrower(owner);
+        waitingQueue.displayQueue();
+        logger.log(Level.INFO, "Total People in the queue: " + waitingQueue.getQueueSize());
+        borrowers.put(waitingQueue.getTitle(), waitingQueue.getWaitingQueue());
 
         // display borrowers list
         borrowers.forEach((key, value) -> logger.log(Level.INFO, () -> key + " " + value.element().getName()));
