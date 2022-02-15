@@ -1,6 +1,7 @@
 package com.booksharingapp;
 
 import com.booksharingapp.model.Owner;
+import com.booksharingapp.service.WaitingQueue;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -9,8 +10,10 @@ import java.util.logging.Logger;
 public class Catalogue {
     private static Logger logger = Logger.getLogger(Catalogue.class.getName());
     private static Map<Long, Book> shelves = new HashMap<>();
+    private static Map<String, Queue<Owner>> borrowers = new HashMap<>();
 
     public static void main(String[] args) {
+        // add book
         Book book = new Book(123456, "Java Programming Book");
         Owner owner = new Owner("Dhruv", "dhruv@gmail.com");
         book.addAuthor("JavaBoy");
@@ -51,6 +54,9 @@ public class Catalogue {
 
         shelves.put(book.getIsbn(), book);
 
+        shelves.forEach((key, value) -> logger.log(Level.INFO,() -> key + " " + value.getTitle()));
+
+        // search book
         Map<Long, List<String>> searchTitleResult = searchTitle("Java Book", shelves);
         displayResult(searchTitleResult);
 
@@ -59,10 +65,32 @@ public class Catalogue {
 
         Map<Long, List<String>> searchKeywordResult = searchKeyword("Book", shelves);
         displayResult(searchKeywordResult);
+
+        // waiting queue
+        WaitingQueue rq = new WaitingQueue("Java Programming Book");
+        rq.addBorrower(owner);
+        owner = new Owner("Dan", "dan@gmail.com");
+        rq.addBorrower(owner);
+        rq.displayQueue();
+        logger.log(Level.INFO, "Total People in the queue: " + rq.getQueueSize());
+        borrowers.put(rq.getTitle(), rq.getRequestQueue());
+
+
+        rq = new WaitingQueue("Python Programming Book");
+        owner = new Owner("Gill", "gill@gmail.com");
+        rq.addBorrower(owner);
+        owner = new Owner("chill", "chill@gmail.com");
+        rq.addBorrower(owner);
+        rq.displayQueue();
+        logger.log(Level.INFO, "Total People in the queue: " + rq.getQueueSize());
+        borrowers.put(rq.getTitle(), rq.getRequestQueue());
+
+        // display borrowers list
+        borrowers.forEach((key, value) -> logger.log(Level.INFO, () -> key + " " + value.element().getName()));
     }
 
     private static void displayResult(Map<Long, List<String>> searchResult) {
-        searchResult.forEach((key, value) -> System.out.println(key + ":" + value));
+        searchResult.forEach((key, value) -> logger.log(Level.INFO,() -> key + ":" + value));
     }
 
     private static Map<Long, List<String>> searchTitle(String title, Map<Long, Book> shelves) {
@@ -79,7 +107,7 @@ public class Catalogue {
                 return mapResult;
             }
         }
-        return null;
+        return Collections.emptyMap();
     }
 
     private static Map<Long, List<String>> searchAuthor(String author, Map<Long, Book> shelves) {
@@ -96,7 +124,7 @@ public class Catalogue {
                 return mapResult;
             }
         }
-        return null;
+        return Collections.emptyMap();
     }
 
     private static Map<Long, List<String>> searchKeyword(String keyword, Map<Long, Book> shelves) {
@@ -113,6 +141,6 @@ public class Catalogue {
                 return mapResult;
             }
         }
-        return null;
+        return Collections.emptyMap();
     }
 }
