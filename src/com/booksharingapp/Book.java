@@ -28,11 +28,11 @@ public class Book {
     }
 
     public boolean addAuthor(String author) {
-        return this.authors.add(author);
+        return authors.add(author);
     }
 
     public boolean addKeyword(String keyword) {
-        return this.keywords.add(keyword);
+        return keywords.add(keyword);
     }
 
     public boolean addOwner(Owner owner) {
@@ -40,14 +40,14 @@ public class Book {
     }
 
     public Set<String> getAuthors() {
-        return new HashSet<>(this.authors);
+        return new HashSet<>(authors);
     }
 
     public Set<String> getKeywords() {
-        return new HashSet<>(this.keywords);
+        return new HashSet<>(keywords);
     }
 
     public Set<Owner> getOwner() {
-        return new HashSet<>(this.owner);
+        return new HashSet<>(owner);
     }
 }
