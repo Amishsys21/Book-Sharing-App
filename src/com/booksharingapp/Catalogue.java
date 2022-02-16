@@ -120,7 +120,8 @@ public class Catalogue {
         CheckStatus cs = new CheckStatus("C++ Programming Book");
         cs.checkStatus(shelves, rentedBookUser, waitingQueueUser);
 
-        String message = "Hello Manny, \nYour requested book is available.";
+        // to send email
+        String message = "Hello Manny, \n\tYour requested book is available.";
         Notification notification = new Notification("Java Programming Book", "danny@gmail.com", "manny@gmail.com", "Requested Book Available", message);
         notification.checkAvailability(shelves);
     }
