@@ -3,6 +3,7 @@ package com.booksharingapp;
 import com.booksharingapp.model.Borrower;
 import com.booksharingapp.model.User;
 import com.booksharingapp.service.CheckStatus;
+import com.booksharingapp.service.Notification;
 import com.booksharingapp.service.Search;
 import com.booksharingapp.service.WaitingQueue;
 
@@ -19,7 +20,7 @@ public class Catalogue {
     public static void main(String[] args) {
         // add book
         Book book = new Book(123456, "Java Programming Book");
-        User user = new User("Dhruv", "dhruv@gmail.com");
+        User user = new User("Danny", "danny@gmail.com");
         book.addAuthor("JavaBoy");
         book.addAuthor("JavaDog");
         book.addKeyword("Java");
@@ -28,7 +29,7 @@ public class Catalogue {
         shelves.put(book.getIsbn(), book);
 
         book = new Book(323232, "Java Book");
-        user = new User("Harshit", "harshit@gmail.com");
+        user = new User("Harsh", "harsh@gmail.com");
         book.addAuthor("JavaBoy");
         book.addAuthor("JavaDog");
         book.addKeyword("Java");
@@ -41,7 +42,7 @@ public class Catalogue {
         rentedBookUser.put(borrower.getName(), borrower);
 
         book = new Book(876538, "Python Programming Book");
-        user = new User("Mayank", "mayank@gmail.com");
+        user = new User("Manny", "manny@gmail.com");
         book.addAuthor("PythonBoy");
         book.addAuthor("PythonSnake");
         book.addKeyword("Python");
@@ -117,8 +118,11 @@ public class Catalogue {
 
         // to check status of particular book
         CheckStatus cs = new CheckStatus("C++ Programming Book");
-        cs.checkStatus(shelves);
-        cs.statusOption(rentedBookUser, waitingQueueUser);
+        cs.checkStatus(shelves, rentedBookUser, waitingQueueUser);
+
+        String message = "Hello Manny, \nYour requested book is available.";
+        Notification notification = new Notification("Java Programming Book", "danny@gmail.com", "manny@gmail.com", "Requested Book Available", message);
+        notification.checkAvailability(shelves);
     }
 
     // display function -> to display all books
