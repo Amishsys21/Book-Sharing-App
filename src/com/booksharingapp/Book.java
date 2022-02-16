@@ -1,6 +1,6 @@
 package com.booksharingapp;
 
-import com.booksharingapp.model.Owner;
+import com.booksharingapp.model.User;
 
 import java.util.*;
 
@@ -9,14 +9,38 @@ public class Book {
     private String title;
     private Set<String> authors;
     private Set<String> keywords;
-    private Set<Owner> owner;
+    private Set<User> user;
+    private String status;
 
     public Book(long isbn, String title) {
         this.isbn = isbn;
         this.title = title;
         this.authors = new HashSet<>();
         this.keywords = new HashSet<>();
-        this.owner = new HashSet<>();
+        this.user = new HashSet<>();
+        this.status = "Available";
+    }
+
+    // setter function
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void addAuthor(String author) {
+        authors.add(author);
+    }
+
+    public void addKeyword(String keyword) {
+        keywords.add(keyword);
+    }
+
+    public void addOwner(User user) {
+        this.user.add(user);
+    }
+
+    // getter functions
+    public String getStatus() {
+        return status;
     }
 
     public long getIsbn() {
@@ -27,18 +51,6 @@ public class Book {
         return title;
     }
 
-    public boolean addAuthor(String author) {
-        return authors.add(author);
-    }
-
-    public boolean addKeyword(String keyword) {
-        return keywords.add(keyword);
-    }
-
-    public boolean addOwner(Owner owner) {
-        return this.owner.add(owner);
-    }
-
     public Set<String> getAuthors() {
         return new HashSet<>(authors);
     }
@@ -47,7 +59,7 @@ public class Book {
         return new HashSet<>(keywords);
     }
 
-    public Set<Owner> getOwner() {
-        return new HashSet<>(owner);
+    public Set<User> getOwner() {
+        return new HashSet<>(user);
     }
 }
