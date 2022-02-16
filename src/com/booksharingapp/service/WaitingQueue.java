@@ -1,39 +1,39 @@
 package com.booksharingapp.service;
 
-import com.booksharingapp.model.Owner;
+import com.booksharingapp.model.User;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class WaitingQueue {
-    private static Logger logger = Logger.getLogger(WaitingQueue.class.getName());
     private String title;
-    private Queue<Owner> waitingQueue;
+    private Queue<User> waitQueue;
 
     public WaitingQueue(String title) {
         this.title = title;
-        this.waitingQueue = new LinkedList<>();
+        this.waitQueue = new LinkedList<>();
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void addBorrower(Owner owner) {
-        waitingQueue.add(owner);
+    // function to add user to the queue
+    public void addUserToQueue(User user) {
+        waitQueue.add(user);
     }
 
+    // function to get queue size
     public int getQueueSize() {
-        return waitingQueue.size();
+        return waitQueue.size();
     }
 
-    public void displayQueue() {
-        logger.log(Level.INFO, "Current elements in the queue: ");
-        waitingQueue.forEach(value -> logger.log(Level.INFO, () -> value.getName() + " " + value.getEmail()));
+    // function to get waiting queue
+    public Queue<User> getWaitQueue() {
+        return waitQueue;
     }
 
-    public Queue<Owner> getWaitingQueue() {
-        return waitingQueue;
+    // function to remove user from the queue
+    public void removeUserFromQueue(User user) {
+        waitQueue.remove(user);
     }
 }
