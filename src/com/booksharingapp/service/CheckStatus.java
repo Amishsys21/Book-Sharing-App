@@ -20,21 +20,17 @@ public class CheckStatus {
         this.bookStatus = new HashMap<>();
     }
 
-    // search book to check status and store in the bookStatus data structure
-    public void checkStatus(Map<Long, Book> shelves) {
-        shelves.forEach((key, value) -> {
-            if (value.getTitle().toLowerCase().contains(title.toLowerCase())) {
-                bookStatus.put(key, value);
-            }
-        });
+    public Map<Long, Book> getBookStatus() {
+        return bookStatus;
     }
 
-    // function to check book status (available / rented)
-    public void statusOption(Map<String, Borrower> rentedBookUser, Map<String, Queue<User>> waitingQueueUser) {
-        bookStatus.forEach((key, value) -> {
-            if (value.getStatus().equalsIgnoreCase("available")) {
-                displayAvailableMsg();
-            } else {
+    // search book to check status and store in the bookStatus data structure
+    public void checkStatus(Map<Long, Book> shelves, Map<String, Borrower> rentedBookUser, Map<String, Queue<User>> waitingQueueUser) {
+        shelves.forEach((key, value) -> {
+            if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("available")) {
+                logger.log(Level.INFO,"Book is available for issue");
+            } else if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("rented")){
+                bookStatus.put(key, value);
                 logger.log(Level.INFO, "Book already issued");
                 displayCurrentBorrower(rentedBookUser);
                 displayWaitingQueue(waitingQueueUser);
@@ -61,10 +57,5 @@ public class CheckStatus {
             }
         }));
         logger.log(Level.INFO,"===================");
-    }
-
-    // Display Book available message
-    private void displayAvailableMsg() {
-        logger.log(Level.INFO,"Book is available for issue");
     }
 }
