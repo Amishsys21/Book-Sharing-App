@@ -34,7 +34,7 @@ public class Book {
         keywords.add(keyword);
     }
 
-    public void addOwner(User user) {
+    public void addUser(User user) {
         this.user.add(user);
     }
 
@@ -52,14 +52,14 @@ public class Book {
     }
 
     public Set<String> getAuthors() {
-        return new HashSet<>(authors);
+        return authors;
     }
 
     public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
+        return keywords;
     }
 
-    public Set<User> getOwner() {
-        return new HashSet<>(user);
+    public Set<User> getUser() {
+        return user;
     }
 }
