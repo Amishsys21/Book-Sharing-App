@@ -91,6 +91,7 @@ public class Catalogue {
         waitingQueue.addUserToQueue(user);
         user = new User("Dan", "dan@gmail.com");
         waitingQueue.addUserToQueue(user);
+        logger.log(Level.INFO, "People in Waiting Queue:" + waitingQueue.getQueueSize());
         waitingQueueUser.put(waitingQueue.getTitle(), waitingQueue.getWaitQueue());
 
         waitingQueue = new WaitingQueue("Python Programming Book");
@@ -98,6 +99,7 @@ public class Catalogue {
         waitingQueue.addUserToQueue(user);
         user = new User("chill", "chill@gmail.com");
         waitingQueue.addUserToQueue(user);
+        logger.log(Level.INFO, "People in Waiting Queue:" + waitingQueue.getQueueSize());
         waitingQueueUser.put(waitingQueue.getTitle(), waitingQueue.getWaitQueue());
 
         waitingQueue = new WaitingQueue("C++ Programming Book");
@@ -107,6 +109,7 @@ public class Catalogue {
         waitingQueue.addUserToQueue(user);
         user = new User("Yam", "yam@gmail.com");
         waitingQueue.addUserToQueue(user);
+        logger.log(Level.INFO, "People in Waiting Queue:" + waitingQueue.getQueueSize());
         waitingQueueUser.put(waitingQueue.getTitle(), waitingQueue.getWaitQueue());
 
         // display borrowers list
