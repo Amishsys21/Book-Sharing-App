@@ -31,9 +31,4 @@ public class WaitingQueue {
     public Queue<User> getWaitQueue() {
         return waitQueue;
     }
-
-    // function to remove user from the queue
-    public void removeUserFromQueue(User user) {
-        waitQueue.remove(user);
-    }
 }
