@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Borrower {
-    private static Logger logger = Logger.getLogger(Borrower.class.getName());
+    private Logger logger = Logger.getLogger(Borrower.class.getName());
     private String name;
     private String email;
     private Map<Long, Book> rentedBooks;
@@ -47,17 +47,18 @@ public class Borrower {
         });
     }
 
-    // to return the map of rented book
-    public Map<Long, Book> getRentedBooks() {
-        return rentedBooks;
-    }
-
     // function to return book
     public void returnBook(String title) {
         for (Map.Entry<Long, Book> entry: rentedBooks.entrySet()) {
             if (entry.getValue().getTitle().equalsIgnoreCase(title)) {
+                entry.getValue().setStatus("Available");
                 rentedBooks.remove(entry.getKey());
             }
         }
+    }
+
+    // to return the map of rented book
+    public Map<Long, Book> getRentedBooks() {
+        return rentedBooks;
     }
 }
