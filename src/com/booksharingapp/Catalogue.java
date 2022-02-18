@@ -25,7 +25,7 @@ public class Catalogue {
         book.addAuthor("JavaDog");
         book.addKeyword("Java");
         book.addKeyword("Programming");
-        book.addOwner(user);
+        book.addUser(user);
         shelves.put(book.getIsbn(), book);
 
         book = new Book(323232, "Java Book");
@@ -34,8 +34,7 @@ public class Catalogue {
         book.addAuthor("JavaDog");
         book.addKeyword("Java");
         book.addKeyword("Programming");
-        book.addOwner(user);
-        book.setStatus("Rented");
+        book.addUser(user);
         shelves.put(book.getIsbn(), book);
         Borrower borrower = new Borrower("Catty", "catty@gmail.com");
         borrower.rentBook(book.getIsbn(), book);
@@ -48,8 +47,7 @@ public class Catalogue {
         book.addKeyword("Python");
         book.addKeyword("Programming");
         book.addKeyword("Book");
-        book.addOwner(user);
-        book.setStatus("Rented");
+        book.addUser(user);
         shelves.put(book.getIsbn(), book);
         borrower.rentBook(book.getIsbn(), book);
         rentedBookUser.put(borrower.getName(), borrower);
@@ -61,8 +59,7 @@ public class Catalogue {
         book.addKeyword("Cat");
         book.addKeyword("Programming");
         book.addKeyword("Book");
-        book.addOwner(user);
-        book.setStatus("Rented");
+        book.addUser(user);
         shelves.put(book.getIsbn(), book);
         borrower = new Borrower("Mathew", "Mathew@gmail.com");
         borrower.rentBook(book.getIsbn(), book);
@@ -132,7 +129,7 @@ public class Catalogue {
             logger.log(Level.INFO, () -> "Book ISBN: " + key);
             logger.log(Level.INFO, () -> "Book Name: " + value.getTitle());
             logger.log(Level.INFO, () -> "Book Authors: " + value.getAuthors());
-            value.getOwner().forEach(val -> {
+            value.getUser().forEach(val -> {
                 logger.log(Level.INFO, () -> "Book Owner's Name: " + val.getName());
                 logger.log(Level.INFO, () -> "Book Owner's Email: " + val.getEmail());
             });
