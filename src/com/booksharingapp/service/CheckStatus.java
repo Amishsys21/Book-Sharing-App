@@ -27,13 +27,15 @@ public class CheckStatus {
     // search book to check status and store in the bookStatus data structure
     public void checkStatus(Map<Long, Book> shelves, Map<String, Borrower> rentedBookUser, Map<String, Queue<User>> waitingQueueUser) {
         shelves.forEach((key, value) -> {
-            if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("available")) {
-                logger.log(Level.INFO,"Book is available for issue");
-            } else if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("rented")){
-                bookStatus.put(key, value);
-                logger.log(Level.INFO, "Book already issued");
-                displayCurrentBorrower(rentedBookUser);
-                displayWaitingQueue(waitingQueueUser);
+            if (value.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                if (value.getStatus().equalsIgnoreCase("available")) {
+                    logger.log(Level.INFO,"Book is available for issue");
+                } else {
+                    bookStatus.put(key, value);
+                    logger.log(Level.INFO, "Book already issued");
+                    displayCurrentBorrower(rentedBookUser);
+                    displayWaitingQueue(waitingQueueUser);
+                }
             }
         });
     }
