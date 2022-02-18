@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Search {
-    private static Logger logger = Logger.getLogger(Search.class.getName());
+    private Logger logger = Logger.getLogger(Search.class.getName());
     private Map<Long, Book> searchResult;
 
     public Search() {
