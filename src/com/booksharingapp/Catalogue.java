@@ -93,7 +93,6 @@ public class Catalogue {
         waitingQueue.addUserToQueue(user);
         waitingQueueUser.put(waitingQueue.getTitle(), waitingQueue.getWaitQueue());
 
-
         waitingQueue = new WaitingQueue("Python Programming Book");
         user = new User("Gill", "gill@gmail.com");
         waitingQueue.addUserToQueue(user);
@@ -113,6 +112,11 @@ public class Catalogue {
         // display borrowers list
         displayBorrowersList(waitingQueueUser);
 
+        // remove user in waiting from the queue
+        removeUserFromWaitingQueue("C++ Programming Book", waitingQueueUser);
+
+        displayBorrowersList(waitingQueueUser);
+
         // to check status of particular book
         CheckStatus cs = new CheckStatus("C++ Programming Book");
         cs.checkStatus(shelves, rentedBookUser, waitingQueueUser);
@@ -121,6 +125,19 @@ public class Catalogue {
         String message = "Hello Manny, \n\tYour requested book is available.";
         Notification notification = new Notification("Java Programming Book", "danny@gmail.com", "manny@gmail.com", "Requested Book Available", message);
         notification.checkAvailability(shelves);
+
+        // book return function
+        borrower.returnBook("C++ Programming Book");
+
+        // once book is return -
+        // its removed from the rentedBookUser map
+        displayAllRentedBook(rentedBookUser);
+
+        // it's status is changed from rented -> available
+        displayAllBooks(shelves);
+
+        // and it shows -> book is available for issue when book status is checked.
+        cs.checkStatus(shelves, rentedBookUser, waitingQueueUser);
     }
 
     // display function -> to display all books
@@ -141,8 +158,7 @@ public class Catalogue {
     // display function -> to display all rented books
     private static void displayAllRentedBook(Map<String, Borrower> rentedBookUser) {
         rentedBookUser.forEach((key, value) -> {
-            logger.log(Level.INFO, key);
-            logger.log(Level.INFO, () -> value.getName() + ", " + value.getEmail());
+            logger.log(Level.INFO, () -> key + ", " + value.getEmail());
             value.displayAllBooks();
         });
     }
@@ -154,6 +170,14 @@ public class Catalogue {
             logger.log(Level.INFO, "Name - Email");
             value.forEach(val -> logger.log(Level.INFO, () -> val.getName() + " - " + val.getEmail()));
             logger.log(Level.INFO, "==========================");
+        });
+    }
+
+    private static void removeUserFromWaitingQueue(String title, Map<String, Queue<User>> waitingQueueUser) {
+        waitingQueueUser.forEach((key, value) -> {
+            if (key.toLowerCase().contains(title.toLowerCase())) {
+                value.poll();
+            }
         });
     }
 }
