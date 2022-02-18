@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Notification {
-    private static Logger logger = Logger.getLogger(Notification.class.getName());
+    private Logger logger = Logger.getLogger(Notification.class.getName());
     private String title;
     private String from;
     private String to;
