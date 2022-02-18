@@ -29,6 +29,7 @@ public class Borrower {
 
     // function to rent book
     public void rentBook(Long isbn, Book book) {
+        book.setStatus("Rented");
         rentedBooks.put(isbn, book);
     }
 
@@ -38,7 +39,7 @@ public class Borrower {
             logger.log(Level.INFO, ()-> "Book ISBN: " + key);
             logger.log(Level.INFO,() -> "Book Name: " + value.getTitle());
             logger.log(Level.INFO,() -> "Book Authors: " + value.getAuthors());
-            value.getOwner().forEach(val -> {
+            value.getUser().forEach(val -> {
                 logger.log(Level.INFO,() -> "Book Owner's Name: " + val.getName());
                 logger.log(Level.INFO,() -> "Book Owner's Email: " + val.getEmail());
             });
