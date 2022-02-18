@@ -11,17 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CheckStatus {
-    private static Logger logger = Logger.getLogger(CheckStatus.class.getName());
+    private Logger logger = Logger.getLogger(CheckStatus.class.getName());
     private String title;
     private Map<Long, Book> bookStatus;
 
     public CheckStatus(String title) {
         this.title = title;
         this.bookStatus = new HashMap<>();
-    }
-
-    public Map<Long, Book> getBookStatus() {
-        return bookStatus;
     }
 
     // search book to check status and store in the bookStatus data structure
