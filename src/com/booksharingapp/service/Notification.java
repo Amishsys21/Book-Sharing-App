@@ -27,12 +27,14 @@ public class Notification {
 
     public void checkAvailability(Map<Long, Book> shelves) {
         shelves.forEach((key, value) -> {
-            if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("available")) {
-                logger.log(Level.INFO,"Book is available for issue");
-                notifyBook.put(key, value);
-                sendEmail();
-            } else if (value.getTitle().toLowerCase().contains(title.toLowerCase()) && value.getStatus().equalsIgnoreCase("rented")){
-                logger.log(Level.INFO, "Book already issued");
+            if (value.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                if (value.getStatus().equalsIgnoreCase("available")) {
+                    logger.log(Level.INFO,"Book is available for issue");
+                    notifyBook.put(key, value);
+                    sendEmail();
+                } else {
+                    logger.log(Level.INFO, "Book already issued");
+                }
             }
         });
     }
@@ -49,7 +51,7 @@ public class Notification {
             logger.log(Level.INFO,() -> "Book ISBN: " + key);
             logger.log(Level.INFO,() -> "Book Name: " + value.getTitle());
             logger.log(Level.INFO,() -> "Book Authors: " + value.getAuthors());
-            value.getOwner().forEach(val -> {
+            value.getUser().forEach(val -> {
                 logger.log(Level.INFO,() -> "Book Owner's Name: " + val.getName());
                 logger.log(Level.INFO,() -> "Book Owner's Email: " + val.getEmail());
             });
