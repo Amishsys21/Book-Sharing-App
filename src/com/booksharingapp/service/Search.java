@@ -17,6 +17,7 @@ public class Search {
 
     // function to search using title
     public void searchByTitle(String title, Map<Long, Book> shelves) {
+        searchResult.clear();
         shelves.forEach((key, value) -> {
             if (value.getTitle().toLowerCase().contains(title.toLowerCase())) {
                 searchResult.put(key, value);
@@ -51,7 +52,7 @@ public class Search {
             logger.log(Level.INFO,() -> "Book ISBN: " + key);
             logger.log(Level.INFO,() -> "Book Name: " + value.getTitle());
             logger.log(Level.INFO,() -> "Book Authors: " + value.getAuthors());
-            value.getOwner().forEach(val -> {
+            value.getUser().forEach(val -> {
                 logger.log(Level.INFO,() -> "Book Owner's Name: " + val.getName());
                 logger.log(Level.INFO,() -> "Book Owner's Email: " + val.getEmail());
             });
